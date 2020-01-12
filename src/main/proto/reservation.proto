@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option java_package = "com.reservation";
+option java_multiple_files = true;
+
+//Mensajes
+message Country {
+    string name = 1;
+    string code = 2;
+    //19000-19999
+}
+
+message Passenger {
+    string id = 1;
+    string name = 2;
+    string last_name = 3;
+    Country country = 4;
+    int32 dni = 5;
+    int32 random_number = 6;
+}
+
+enum TripType {
+    UNKNOWN_TRIP_TYPE = 0;
+    ROUND_TRIP = 1;
+    ONE_WAY = 2;
+}
+
+enum ReservationState {
+    UNKNOWN_RESERVATION_STATE = 0;
+    RESERVED = 1;
+    EMITED = 2;
+    PENDING_EMISION = 3;
+    ERROR = 4;
+}
+
+message Reservation {
+    Passenger passenger = 3;
+    string origin = 4;
+    string destination = 5;
+    TripType trip_type = 6;
+}
+
+message ReservationRequest {
+    Reservation reservation = 1;
+}
+
+message ReservationResponse {
+    string id = 1;
+    string pnr = 2;
+    ReservationState type = 3;
+    string payment_provider = 4;
+    google.protobuf.Timestamp created_at = 5;
+}
+
+service ReservationService {
+    rpc createReservation(ReservationRequest) returns (ReservationResponse){};
+}
+
+message Dog {
+    string name = 1;
+}
+
+message Persona {
+    string s = 1;
+}
